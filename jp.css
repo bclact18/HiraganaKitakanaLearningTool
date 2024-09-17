@@ -1,0 +1,61 @@
+/*Container Settings*/
+.container{
+	display: grid;
+	grid-template-columns: 3fr 1fr 1fr;
+	grid-gap: 5px;
+	border: 4px solid red;
+}
+
+/*Test Sheet Side*/
+h1 {
+	font-size: 30px;
+	color: #0f0f0f;
+}
+.textbox{
+	font-size: 15px;
+	width: 50px;
+	text-align: center;
+}
+
+.questionTableCells {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 20px;
+	width: 50px;
+	text-align: center;
+	font-weight: bold;
+	overflow: hidden;
+}
+#questionTable{
+	width: 100%;
+	border: 2px solid green;
+	white-space: nowrap;
+}
+
+.textbox{
+	font-size: 15px;
+	width: 50px;
+	text-align: center;
+}
+
+.questionButtons{
+	font-size: 15px;
+	width: 100%;
+	font-weight: bold;
+}
+div{
+	border: 3px solid yellow;
+}
+
+/*Option Table Side*/
+#optionTable{
+	width: 100%;
+	float: center;
+	border: 2px solid blue;
+	margin: auto;
+	margin-top: 100px;
+}
+button{
+	width: 100%;
+	margin: auto;
+}
