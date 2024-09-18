@@ -32,7 +32,7 @@ const japanese = [
 ]
 //Options to select
 const bulletPoint = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 63, 68, 71, 76, 81, 86, 91, 96,
-101, 106, 111, 116, 121, 126, 131, 134, 139];
+101, 106, 111, 116, 121, 126, 131, 134, 139, 143];
 //Button listensers
 const submitButton = document.getElementById("submitButton");
 submitButton.addEventListener("click", checkAnswer);
@@ -50,7 +50,7 @@ const questionStorage = {
 //Init page on first load
 resetPage();
 
-
+// Show correct answer and calculate score
 function checkAnswer(){
 	let answers = [];
 	let questions = questionStorage.getQuestion()[0];
@@ -72,6 +72,7 @@ function checkAnswer(){
 	grade.innerHTML = "Grade: " + g + "/100";
 	grade.style.visibility = "visible";
 }
+// Reset highlight and generate new question
 function resetPage(){
 	let questions = []
 	for(let i = 0; i < 100; i++){
@@ -89,7 +90,7 @@ function resetPage(){
 		questionTable.innerHTML += `<tr id="${"row" + (i*2+1)}" class="questionTableCells"></tr>`;
 		rowX = document.getElementById("row" + (i*2+1));
 		for(let j = 0; j < 10; j++){
-			rowX.innerHTML += `<td class="questionTableCells"><input type="text" class="textbox" id="${"ans" + (i*10 + j)}" required minlength="1" maxlength="3" size="1" /></td>`;
+			rowX.innerHTML += `<td class="questionTableCells"><input type="text" class="answerBox" id="${"ans" + (i*10 + j)}" required minlength="1" maxlength="3" size="1" /></td>`;
 		}
 	}
 	for(let i = 0; i < 100; i++){
@@ -99,18 +100,20 @@ function resetPage(){
 	grade.innerHTML = "Grade";
 	grade.style.visibility = "hidden";
 }
+// Pull setting from user
 function settingMenu(){
 	checkboxes = document.getElementsByClassName("checkbox");
-	let result = [];
 	for(let i = 0; i < checkboxes.length; i++){
 		if(checkboxes[i].checked){
-			result.push(checkboxes[i].value);
+			let re = Number(checkboxes[i].value);
+			for(let j = bulletPoint[re]; j < bulletPoint[re+1]; j++){
+				console.log(japanese[j][1]);
+			}
 		}
 	}
-	console.log(result)
 }
 // Option Table Setup
 const optionTable = document.getElementById("optionTable");
-for(let i = 0; i < bulletPoint.length/2; i++){
+for(let i = 0; i < (bulletPoint.length - 1) /2; i++){
 	optionTable.innerHTML += `<tr><td>${japanese[bulletPoint[i]][1]}行</td><td><input type="checkbox" class="checkbox" value=${i} id="${"opt"+i}"></td><td>${japanese[bulletPoint[i+15]][1]}行</td><td><input type="checkbox" class="checkbox" value=${i+15} id="${"opt"+i+15}"></td></tr>`;
 }
