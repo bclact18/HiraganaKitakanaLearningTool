@@ -8,4 +8,9 @@ Submit Button will grade the input and provide a score
 
 Reset Button will reset the questions
 
-Question Selector: WIP, which will be added shortly
+
+## Features WIP
+
+-Question Selector
+
+-Number of Question Selector
