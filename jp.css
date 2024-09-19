@@ -52,7 +52,7 @@ button{
 }
 
 /*Testing Borders*/
-table{
+th{
 	border: 2px solid red;
 }
 div{

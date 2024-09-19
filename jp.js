@@ -1,3 +1,4 @@
+// Database
 const japanese = [
 	["a", "あ"],["i", "い"],["u", "う"],["e", "え"],["o", "お"],
 	["ka", "か"],["ki", "き"],["ku", "く"],["ke", "け"],["ko", "こ"],
@@ -30,30 +31,53 @@ const japanese = [
 	["ra", "ラ"],["ri", "リ"],["ru", "ル"],["re", "レ"],["ro", "ロ"],
 	["wa", "ワ"],["wo", "ヲ"],["n", "ン"],["vu", "ヴ"]
 ]
-//Options to select
+// Options to select
 const bulletPoint = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 63, 68, 71, 76, 81, 86, 91, 96,
 101, 106, 111, 116, 121, 126, 131, 134, 139, 143];
-//Button listensers
+// Listensers
 const submitButton = document.getElementById("submitButton");
 submitButton.addEventListener("click", checkAnswer);
 const resetButton = document.getElementById("resetButton");
 resetButton.addEventListener("click", resetPage);
 const selectionButton = document.getElementById("selection");
 selectionButton.addEventListener("click", settingMenu);
+
 //Grade Display
 const grade = document.getElementById("grade");
+// Global Variable :)
 const questionStorage = {
 	questions: [],
-	getQuestion: function(){ return this.questions;},
-	setQuestion: function(...args) {this.questions = args.slice();}
+	range: [],
+	getQuestion: function(){ return this.questions[0];},
+	setQuestion: function(...args) {this.questions = args.slice();},
+	getRange: function(){return this.range[0];},
+	setRange: function(...args){this.range = args.slice();}
 }
-//Init page on first load
-resetPage();
 
+// Will combine later....
+function hChecked(){
+	let hira = document.getElementById("hira");
+	let checkboxes = document.getElementsByClassName("checkbox");
+	for(let i = 0; i < checkboxes.length; i++){
+		if(checkboxes[i].value < 15){
+			checkboxes[i].checked = hira.checked;
+		}
+	}
+}
+
+function kChecked(){
+	let kata = document.getElementById("kata");
+	let checkboxes = document.getElementsByClassName("checkbox");
+	for(let i = 0; i < checkboxes.length; i++){
+		if(checkboxes[i].value >= 15){
+			checkboxes[i].checked = kata.checked;
+		}
+	}
+}
 // Show correct answer and calculate score
 function checkAnswer(){
 	let answers = [];
-	let questions = questionStorage.getQuestion()[0];
+	let questions = questionStorage.getQuestion();
 	let g = 0;
 	for(let i = 0; i < 100; i++){
 		answers.push(document.getElementById("ans" + i).value);
@@ -75,8 +99,9 @@ function checkAnswer(){
 // Reset highlight and generate new question
 function resetPage(){
 	let questions = []
+	let range = questionStorage.getRange();
 	for(let i = 0; i < 100; i++){
-		questions.push(Math.floor(Math.random()*143));
+		questions.push(range[Math.floor(Math.random()*range.length)]);
 	}
 	console.log("Questions Generated");
 	const questionTable = document.getElementById("questionTable");
@@ -103,17 +128,23 @@ function resetPage(){
 // Pull setting from user
 function settingMenu(){
 	checkboxes = document.getElementsByClassName("checkbox");
+	let result = [];
 	for(let i = 0; i < checkboxes.length; i++){
 		if(checkboxes[i].checked){
 			let re = Number(checkboxes[i].value);
 			for(let j = bulletPoint[re]; j < bulletPoint[re+1]; j++){
-				console.log(japanese[j][1]);
+				result.push(j);
 			}
 		}
 	}
+	questionStorage.setRange(result);
+	resetPage();
 }
 // Option Table Setup
 const optionTable = document.getElementById("optionTable");
+optionTable.innerHTML = `<tr><td>Hira</td><td><input type="checkbox" id="hira" onclick="hChecked()" checked></td><td>Kata</td><td><input type="checkbox" id="kata" onclick="kChecked()"></td></tr>`
 for(let i = 0; i < (bulletPoint.length - 1) /2; i++){
-	optionTable.innerHTML += `<tr><td>${japanese[bulletPoint[i]][1]}行</td><td><input type="checkbox" class="checkbox" value=${i} id="${"opt"+i}"></td><td>${japanese[bulletPoint[i+15]][1]}行</td><td><input type="checkbox" class="checkbox" value=${i+15} id="${"opt"+i+15}"></td></tr>`;
+	optionTable.innerHTML += `<tr><td>${japanese[bulletPoint[i]][1]}行</td><td><input type="Checkbox" class="checkbox" value=${i} id="${"opt"+i}" checked></td><td>${japanese[bulletPoint[i+15]][1]}行</td><td><input type="checkbox" class="checkbox" value=${i+15} id="${"opt"+i+15}"></td></tr>`;
 }
+//Init page on first load
+settingMenu();

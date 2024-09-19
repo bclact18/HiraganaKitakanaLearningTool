@@ -8,9 +8,16 @@ Submit Button will grade the input and provide a score
 
 Reset Button will reset the questions
 
+(This is my first time writing Javascript, still learning)
 
 ## Features WIP
 
--Question Selector
+- Question Selector
 
--Number of Question Selector
+- Number of Question Selector
+
+- Timer
+
+- Adding youon to the database
+
+- Creating json database?
