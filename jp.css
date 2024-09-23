@@ -42,13 +42,17 @@ h1 {
 }
 button{
 	width: 100%;
+	font-size: 15px;
+	font-weight: bold;
 	margin: auto;
 }
 .optionSection{
-	width: 40%;
+	width: 70%;
 	
 	margin: auto;
 	margin-top: 10%;
+	font-size: 15px;
+	font-weight: bold;
 }
 
 /*Testing Borders*/
