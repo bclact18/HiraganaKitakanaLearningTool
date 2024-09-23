@@ -19,5 +19,3 @@ Reset Button will reset the questions
 - Timer
 
 - Adding youon to the database
-
-- Creating json database?
